@@ -1,25 +1,22 @@
-import { useState } from 'react';
-import { supabase } from '../supabaseClient'
+// Login.js
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
-export default function Login() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+function Login({ handleLogin, email, setEmail, password, setPassword, loggedIn }) {
+    const [error, setError] = useState("");
 
-    const handleLogin = async (e) => {
-        e.preventDefault();
-        const { user, error } = await supabase.auth.signIn({
-            email,
-            password,
-        });
-        if (error) {
-            console.error(error);
-        } else {
-            console.log(user);
-        }
+    const handleSubmit = (e) => {
+        handleLogin(e);
     };
 
+    if (loggedIn) {
+        return <p>You are already logged in.</p>;
+    }
+
     return (
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handleSubmit}>
+            <h2>Login</h2>
+            {error && <p>{error}</p>}
             <label>
                 Email:
                 <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -28,7 +25,12 @@ export default function Login() {
                 Password:
                 <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
             </label>
-            <button type="submit">Log In</button>
+            <button type="submit">Login</button>
+            <p>
+                Don't have an account? <Link to="/create-account">Create one here</Link>.
+            </p>
         </form>
     );
 }
+
+export default Login;

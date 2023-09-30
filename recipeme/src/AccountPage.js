@@ -1,14 +1,45 @@
-import { Link } from 'react-router-dom';
+// AccountPage.js
+import React, { useState, useEffect } from 'react';
+import { supabase } from './supabaseClient';
+import FavoriteRecipe from './components/FavoriteRecipe';
 
-export default function AccountPage() {
+const AccountPage = ({ data }) => {
+    const [favorites, setFavorites] = useState([]);
+
+    const handleReload = async () => {
+        const { data, error } = await supabase
+            .from('User')
+            .select('Favorites');
+        if (error) {
+            console.log(error);
+        } else {
+            setFavorites(data);
+            console.log(data);
+        }
+    };
+
+    useEffect(() => {
+        handleReload();
+    }, []);
+
+    const generateKey = (prefix) => {
+        return `${prefix}-${new Date().getTime()}-${Math.random()}`;
+    };
+
     return (
-        <div>
+        <div className="account-page">
             <h2>Account Page</h2>
-            <p>Welcome to your account page!</p>
-            <div>
-                <Link to="/create-account">Create Account</Link>
-                <Link to="/login">Log In</Link>
-            </div>
+            <p>Welcome, {data && data.user && data.user.email}!</p>
+            <button onClick={handleReload}>Reload</button>
+            <h3>Favorites</h3>
+            
+            <div className="favorites-grid">
+            {favorites.map((favorite) => (
+                <FavoriteRecipe key={generateKey('favorite')} favorite={favorite} />
+                ))}
+                </div>
         </div>
     );
-}
+};
+
+export default AccountPage;

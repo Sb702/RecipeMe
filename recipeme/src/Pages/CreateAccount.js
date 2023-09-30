@@ -7,14 +7,14 @@ export default function CreateAccount() {
 
     const handleCreateAccount = async (e) => {
         e.preventDefault();
-        const { user, error } = await supabase.auth.signUp({
+        const { data, error } = await supabase.auth.signUp({
             email,
             password,
         });
         if (error) {
             console.error(error);
         } else {
-            console.log(user);
+            console.log(data);
         }
     };
 

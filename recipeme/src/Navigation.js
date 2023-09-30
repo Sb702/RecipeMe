@@ -1,16 +1,35 @@
-import { NavLink } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
-export default function Navigation() {
+function Navigation({ loggedIn, handleLogout }) {
     return (
-        <nav className="navigation">
+        <nav>
             <ul>
                 <li>
-                    <NavLink exact="true" to="/" >Search</NavLink>
+                    <Link to="/">Search</Link>
                 </li>
-                <li>
-                    <NavLink to="/account">Account</NavLink>
-                </li>
+                {!loggedIn && (
+                    <>
+                        <li>
+                            <Link to="/create-account">Create Account</Link>
+                        </li>
+                        <li>
+                            <Link to="/login">Login</Link>
+                        </li>
+                    </>
+                )}
+                {loggedIn && (
+                    <>
+                        <li>
+                            <Link to="/account">My Account</Link>
+                        </li>
+                        <li>
+                            <button onClick={handleLogout}>Logout</button>
+                        </li>
+                    </>
+                )}
             </ul>
         </nav>
     );
 }
+
+export default Navigation;
