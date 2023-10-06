@@ -9,15 +9,13 @@ function SearchPage( {data, loggedIn} ) {
 
     useEffect(() => {
         async function handleLike() {
-            if (data && data.user && data.user.id && favorites !== '') {
-                const { error } = await supabase
-                    .from('User')
-                    .insert({ Favorites: favorites })
+                const { data: insertedData, error } = await supabase
+                    .from("User")
+                    .insert([{ Favorites: favorites}]);
                 if (error) {
                     console.log(error);
                 } else {
-                    console.log("data inserted");
-                }
+                    console.log("data inserted:", insertedData);
             }
         }
         handleLike();
@@ -27,14 +25,20 @@ function SearchPage( {data, loggedIn} ) {
         e.preventDefault();
         const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?query=${query}&apiKey=b8c03f2780e148878d1d8edc1a098c70`);
         const data = await response.json();
-        setRecipes(data.results);
-        console.log(data)
+        setRecipes(data.results || []);
+        console.log(data);
     };
 
-    function handleSetFavorite(e, recipe) {
+    async function handleSetFavorite(e, recipe) {
         e.preventDefault();
-        setFavorites(recipe.id);
-    }
+        const response = await fetch(
+          `https://api.spoonacular.com/recipes/${recipe.id}/information?apiKey=b8c03f2780e148878d1d8edc1a098c70`
+        );
+        const data = await response.json();
+        console.log(data)
+        setFavorites(data);
+      }
+      
     return (
         <div className="search-page">
             <form onSubmit={handleSearch}>
