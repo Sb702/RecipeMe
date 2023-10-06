@@ -28,7 +28,7 @@ function SearchPage( {data, loggedIn} ) {
         const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?query=${query}&apiKey=b8c03f2780e148878d1d8edc1a098c70`);
         const data = await response.json();
         setRecipes(data.results);
-        console.log(data.results)
+        console.log(data)
     };
 
     function handleSetFavorite(e, recipe) {

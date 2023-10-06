@@ -28,30 +28,27 @@ function App() {
     }
   };
 
-  const handleLogout = async () => {
-    if (!supabase.auth.user()) {
-      return;
-    }
-
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.error(error);
-    } else {
-      setData({});
-      setLoggedIn(false);
-    }
-  };
+async function handleLogout() {
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    console.error(error);
+  } else {
+    setData({});
+    setLoggedIn(false);
+    console.log("logged out")
+  }
+}
 
   return (
     <Router>
       <div className="container">
         <header>
-          <h1>Recipe App</h1>
+          <h1>RecipeMe</h1>
           <Navigation loggedIn={loggedIn} handleLogout={handleLogout} />
         </header>
         <main>
           <Routes>
-            <Route path="/" element={<SearchPage data={data} loggedIn={loggedIn} />} />
+            <Route path="/" element={<SearchPage data={data} />} />
             <Route path="/create-account" element={<CreateAccount />} />
             <Route
               path="/login"
