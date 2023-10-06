@@ -4,7 +4,7 @@ import { supabase } from './supabaseClient';
 import FavoriteRecipe from './components/FavoriteRecipe';
 
 const AccountPage = ({ data }) => {
-    const [favorites, setFavorites] = useState({});
+    const [favorites, setFavorites] = useState([]);
 
     const handleReload = async () => {
         const { data, error } = await supabase
@@ -13,8 +13,8 @@ const AccountPage = ({ data }) => {
         if (error) {
             console.log(error);
         } else {
-            setFavorites(data);
-            console.log(data);
+            setFavorites(data.map((item) => item.Favorites).flat());
+            console.log(data.map((item) => item.Favorites).flat());
         }
     };
 
@@ -34,9 +34,9 @@ const AccountPage = ({ data }) => {
             <h3>Favorites</h3>
             
             <div className="favorites-grid">
-            {/* {favorites.map((favorite) => (
+            {favorites.map((favorite) => (
                 <FavoriteRecipe key={generateKey('favorite')} favorite={favorite} />
-                ))} */}
+                ))}
                 </div>
         </div>
     );
