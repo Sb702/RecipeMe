@@ -4,14 +4,19 @@ import Favorites from './components/Favorites';
 import IngredientSearch from './components/IngredientSearch';
 import './Pages/AccountPage.css';
 
-const AccountPage = ({ data }) => {
+const AccountPage = ({ data, userid }) => {
     const [favorites, setFavorites] = useState([]);
     const [showFavorites, setShowFavorites] = useState(true);
 
+    console.log('accountpage', userid)
+
     const handleReload = async () => {
         const { data, error } = await supabase
-            .from("User")
-            .select("Favorites")
+            .from('User')
+            .select('Favorites')
+            .eq('userid', userid);
+        console.log('data:', data);
+        console.log('error:', error);
         if (error) {
             console.log(error);
         } else {

@@ -3,26 +3,32 @@ import { useState, useEffect } from 'react';
 import './SearchPage.css';
 import { supabase } from './supabaseClient';
 
-function SearchPage( {data, loggedIn} ) {
+function SearchPage( {data, userid} ) {
     const [query, setQuery] = useState('');
     const [recipes, setRecipes] = useState([]);
     const [favorites, setFavorites] = useState([]);
 
+    console.log(userid)
+
+
     useEffect(() => {
-        async function handleLike() {
-            if (favorites.length > 0) {
-                const { data: insertedData, error } = await supabase
-                    .from("User")
-                    .insert([{ Favorites: favorites}]);
-                if (error) {
-                    console.log(error);
-                } else {
-                    console.log("data inserted:", insertedData);
+        return () => {
+            async function handleLike() {
+                if (favorites.length > 0) {
+                    const { data: insertedData, error } = await supabase
+                        .from("User")
+                        .insert([{ Favorites: favorites, userid:userid} ]);
+                    if (error) {
+                        console.log(error);
+                    } else {
+                        console.log("data inserted:", insertedData);
+                    }
                 }
             }
+            handleLike();
         }
-        handleLike();
-    }, [favorites, data]);
+    }, [favorites, userid]);
+
 
     const handleSearch = async (e) => {
         e.preventDefault();

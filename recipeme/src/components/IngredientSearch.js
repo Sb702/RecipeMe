@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import "./IngredientSearch.css";
 
-const IngredientSearch = () => {
-    const [searchTerm, setSearchTerm] = useState('');
+function IngredientSearch() {
+    const [searchTerm, setSearchTerm] = useState("");
     const [searchResults, setSearchResults] = useState([]);
 
     const handleSearchChange = (event) => {
-        const value = event.target.value;
-        setSearchTerm(value);
+        setSearchTerm(event.target.value);
     };
 
     const handleSearchSubmit = async (event) => {
@@ -29,16 +29,23 @@ const IngredientSearch = () => {
         <div className="ingredient-search">
             <h3>Ingredient Search</h3>
             <form onSubmit={handleSearchSubmit}>
-                <input type="text" placeholder="Search for an ingredient" value={searchTerm} onChange={handleSearchChange} />
+                <input
+                    type="text"
+                    placeholder="Search for an ingredient"
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                />
                 <button type="submit">Search</button>
             </form>
             <ul>
                 {searchResults.map((result) => (
-                    <li key={result.id}>{result.name}</li>
+                    <li key={result.id} onClick={() => console.log(result.name)} className="ingredient-item">
+                        {result.name}
+                    </li>
                 ))}
             </ul>
         </div>
     );
-};
+}
 
 export default IngredientSearch;

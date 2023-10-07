@@ -12,6 +12,7 @@ function App() {
   const [password, setPassword] = useState("");
   const [data, setData] = useState({});
   const [loggedIn, setLoggedIn] = useState(false);
+  const [userid, setUserid] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -25,6 +26,8 @@ function App() {
       console.log(data);
       setData(data);
       setLoggedIn(true);
+      console.log(data.session.access_token)
+      setUserid(data.user.id)
     }
   };
 
@@ -48,13 +51,13 @@ async function handleLogout() {
         </header>
         <main>
           <Routes>
-            <Route path="/" element={<SearchPage data={data} />} />
+            <Route path="/" element={<SearchPage data={data} userid={userid}/>} />
             <Route path="/create-account" element={<CreateAccount />} />
             <Route
               path="/login"
               element={
                 loggedIn ? (
-                  <AccountPage data={data} />
+                  <AccountPage data={data} userid={userid} />
                 ) : (
                   <Login
                     handleLogin={handleLogin}
@@ -67,7 +70,7 @@ async function handleLogout() {
                 )
               }
             />
-            <Route path="/account" element={<AccountPage data={data} />} />
+            <Route path="/account" element={<AccountPage userid={userid} data={data} />} />
           </Routes>
         </main>
       </div>
