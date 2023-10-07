@@ -1,4 +1,68 @@
-
+/* FavoriteRecipe.css */
 .favorite-recipe {
-    background-color: rgba(128, 128, 128, 0.145);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+
+
+.favorite-ready-in-minutes {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: #6f42c1;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 0 0 0 10px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+.favorite-recipe:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.favorite-image {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.favorite-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.favorite-description {
+    font-size: 1rem;
+    text-align: center;
+}
+
+/* styling for the show-more-button class to make it look modern and sleek */
+
+.show-more-button {
+    background-color: #6f42c1;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* modern styling hover effect for showmore button */
+
+.show-more-button:hover {
+    background-color: #5a32a3;
 }

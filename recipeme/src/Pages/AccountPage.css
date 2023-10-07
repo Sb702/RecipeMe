@@ -1,16 +1,17 @@
 /* AccountPage.css */
 .account-page {
-    max-width: 800px;
-    margin: 0 auto;
 }
 
 .account-page h2 {
-    margin-top: 0;
-    margin-bottom: 20px;
 }
 
 .favorites-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    grid-gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 10px;
+}
+
+.favorites-subheader {
+    text-align: center;
+    font-size: 2em;
 }

@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from './supabaseClient';
 import FavoriteRecipe from './components/FavoriteRecipe';
+import './Pages/AccountPage.css';
 
 const AccountPage = ({ data }) => {
     const [favorites, setFavorites] = useState([]);
@@ -31,7 +32,7 @@ const AccountPage = ({ data }) => {
             <h2>Account Page</h2>
             <p>Welcome, {data && data.user && data.user.email}!</p>
             <button onClick={handleReload}>Reload</button>
-            <h3>Favorites</h3>
+            <h3 className='favorites-subheader'>Favorites</h3>
             
             <div className="favorites-grid">
             {favorites.map((favorite) => (
