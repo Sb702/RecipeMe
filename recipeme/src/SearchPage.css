@@ -13,6 +13,8 @@ form {
 }
 
 input[type="text"] {
+    background-color: rgba(88, 88, 88, 0.487);
+    color: white;
     padding: 10px;
     border: none;
     border-radius: 5px;

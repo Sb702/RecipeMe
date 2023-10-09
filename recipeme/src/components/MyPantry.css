@@ -1,0 +1,33 @@
+
+.pantry-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 5px;
+
+}
+
+
+.ingredient {
+    background-color: rgba(128, 128, 128, 0.492);
+    border-radius: 5%;
+    padding: 8px;
+    font-weight: bold;
+}
+
+.amount-buttons {
+    /* center all elements inside vertically and horizontally */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 4%;
+    gap: 2%;
+}
+
+
+.amount-button {
+    background-color: purple;
+    color: white;
+    border-radius: 5%;
+    cursor: pointer;
+}

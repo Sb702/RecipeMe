@@ -1,13 +1,15 @@
-import React, { useState } from "react";
-import "./IngredientSearch.css";
+import React, { useState } from 'react';
+import { supabase } from '../supabaseClient';
+import './IngredientSearch.css';
 
-function IngredientSearch() {
-    const [searchTerm, setSearchTerm] = useState("");
+export default function IngredientSearch({ userid }) {
+    const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
 
     const handleSearchChange = (event) => {
         setSearchTerm(event.target.value);
     };
+    console.log(userid)
 
     const handleSearchSubmit = async (event) => {
         event.preventDefault();
@@ -25,6 +27,18 @@ function IngredientSearch() {
         }
     };
 
+    const handleClick = async (result) => {
+        try {
+            const { data, error } = await supabase.from('Pantry').insert([{ pantry: result.name, userid: userid }]);
+            if (error) {
+                throw error;
+            }
+            console.log('Inserted into Pantry:', data);
+        } catch (error) {
+            console.log('Error inserting into Pantry:', error.message);
+        }
+    };
+
     return (
         <div className="ingredient-search">
             <h3>Ingredient Search</h3>
@@ -39,7 +53,7 @@ function IngredientSearch() {
             </form>
             <ul>
                 {searchResults.map((result) => (
-                    <li key={result.id} onClick={() => console.log(result.name)} className="ingredient-item">
+                    <li key={result.name} onClick={() => handleClick(result)} className="ingredient-item">
                         {result.name}
                     </li>
                 ))}
@@ -47,5 +61,3 @@ function IngredientSearch() {
         </div>
     );
 }
-
-export default IngredientSearch;

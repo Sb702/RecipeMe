@@ -51,7 +51,7 @@ function SearchPage( {data, userid} ) {
         <div className="search-page">
             <h2>Search Page</h2>
             <form onSubmit={handleSearch}>
-                <input type="text" value={query} onChange={(e) => setQuery(e.target.value)} />
+                <input type="text" placeholder='Search...' value={query} onChange={(e) => setQuery(e.target.value)} />
                 <button type="submit">Search</button>
             </form>
             <div className="recipes-grid">

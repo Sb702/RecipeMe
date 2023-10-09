@@ -3,6 +3,7 @@ import { supabase } from './supabaseClient';
 import Favorites from './components/Favorites';
 import IngredientSearch from './components/IngredientSearch';
 import './Pages/AccountPage.css';
+import IngredientLayout from './Layouts/IngredientLayout';
 
 const AccountPage = ({ data, userid }) => {
     const [favorites, setFavorites] = useState([]);
@@ -45,7 +46,7 @@ const AccountPage = ({ data, userid }) => {
                 <button className={showFavorites ? "active" : ""} onClick={handleToggleFavorites}>Favorites</button>
                 <button className={!showFavorites ? "active" : ""} onClick={handleToggleIngredientSearch}>Ingredient Search</button>
             </div>
-            {showFavorites ? <Favorites favorites={favorites} /> : <IngredientSearch />}
+            {showFavorites ? <Favorites favorites={favorites} /> : <IngredientLayout userid={userid} />}
         </div>
     );
 };
