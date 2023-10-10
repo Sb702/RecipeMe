@@ -1,68 +1,67 @@
-// SearchPage.js
 import { useState, useEffect } from 'react';
 import './SearchPage.css';
+import axios from 'axios';
 import { supabase } from './supabaseClient';
 
-function SearchPage( {data, userid} ) {
+function SearchPage({ data, userid }) {
     const [query, setQuery] = useState('');
     const [recipes, setRecipes] = useState([]);
     const [favorites, setFavorites] = useState([]);
 
-    console.log(userid)
-
+    console.log(userid);
 
     useEffect(() => {
-        return () => {
-            async function handleLike() {
-                if (favorites.length > 0) {
-                    const { data: insertedData, error } = await supabase
-                        .from("User")
-                        .insert([{ Favorites: favorites, userid:userid} ]);
-                    if (error) {
-                        console.log(error);
-                    } else {
-                        console.log("data inserted:", insertedData);
-                    }
+        async function handleLike() {
+            if (favorites.length > 0) {
+                const { data: insertedData, error } = await supabase
+                    .from('User')
+                    .insert([{ Favorites: favorites, userid: userid }]);
+                if (error) {
+                    console.log(error);
+                } else {
+                    console.log(insertedData);
                 }
             }
-            handleLike();
         }
-    }, [favorites, userid]);
-
+        handleLike();
+    }, [favorites]);
 
     const handleSearch = async (e) => {
         e.preventDefault();
-        const response = await fetch(`https://api.spoonacular.com/recipes/complexSearch?query=${query}&apiKey=b8c03f2780e148878d1d8edc1a098c70`);
-        const data = await response.json();
-        setRecipes(data.results || []);
-        console.log(data);
+        const response = await axios.get(
+            `https://api.edamam.com/search?q=${query}&app_id=66965766&app_key=2c893f1526b753955ece70cb994d99eb`
+        );
+        setRecipes(response.data.hits);
+        console.log(response.data.hits[0])
     };
 
-    async function handleSetFavorite(e, recipe) {
-        e.preventDefault();
-        const response = await fetch(
-          `https://api.spoonacular.com/recipes/${recipe.id}/information?apiKey=b8c03f2780e148878d1d8edc1a098c70`
-        );
-        const data = await response.json();
-        setFavorites([...favorites, data]);
-    }
+
+    // when we click I want to insert make that speicifc recipe the favorite from the recipes state
+    const handleLikeRecipe = (recipe) => {
+        setFavorites([...favorites, recipe]);
+    };
 
     return (
-        <div className="search-page">
-            <h2>Search Page</h2>
+        <div>
             <form onSubmit={handleSearch}>
-                <input type="text" placeholder='Search...' value={query} onChange={(e) => setQuery(e.target.value)} />
+                <input
+                    type="text"
+                    placeholder="Search for recipes"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                />
                 <button type="submit">Search</button>
             </form>
-            <div className="recipes-grid">
+            <ul>
                 {recipes.map((recipe) => (
-                    <div key={recipe.id} className="recipe-card">
-                        <h3 className='recipe'>{recipe.title}</h3>
-                        <img className='recipe-img' src={recipe.image} alt={recipe.title} />
-                        <button onClick={(e) => handleSetFavorite(e, recipe)}>Add to Favorites</button>
-                    </div>
+                    <li key={recipe.recipe.uri}>
+                        <h3>{recipe.recipe.label}</h3>
+                        <img src={recipe.recipe.image} alt={recipe.recipe.label} />
+                        <p>{recipe.recipe.source}</p>
+                        <button onClick={() => handleLikeRecipe(recipe)}>Like</button>
+                    </li>
                 ))}
-            </div>
+            </ul>
         </div>
     );
 }

@@ -1,31 +1,22 @@
-// FavoriteRecipe.js
-import React, { useState } from 'react';
-import './FavoriteRecipe.css';
+import React from 'react';
 
-const FavoriteRecipe = ({ favorite }) => {
-    const [showMore, setShowMore] = useState(false);
+const FavoriteRecipe = ({ recipe }) => {
+    if (!recipe) {
+        return null;
+    }
 
-    const toggleShowMore = () => {
-        setShowMore(!showMore);
-    };
-
-    const description = showMore ? favorite.summary : favorite.summary.split('. ')[0] + '.';
+    const { label, image, source, url, ingredients } = recipe;
+    console.log(recipe)
+    console.log(recipe.recipe.label)
 
     return (
         <div className="favorite-recipe">
-            {favorite.readyInMinutes && <p className="favorite-ready-in-minutes">Ready in {favorite.readyInMinutes} minutes</p>}
-            
-            <img className="favorite-image" src={favorite.image} alt={favorite.title} />
-
-            <h3 className="favorite-title">{favorite.title}</h3>
-
-            <p className="favorite-description" dangerouslySetInnerHTML={{ __html: description }} />
-
-            {favorite.summary.split('. ').length > 1 && (
-                <button className="show-more-button" onClick={toggleShowMore}>
-                    {showMore ? 'Show Less' : 'Show More'}
-                </button>
-            )}
+            <h3>{recipe.recipe.label}</h3>
+            <img src={recipe.recipe.image} alt={label} />
+            <p>{source}</p>
+            <a href={url} target="_blank" rel="noreferrer">
+                View Recipe
+            </a>
         </div>
     );
 };
