@@ -57,8 +57,8 @@ function SearchPage( {data, userid} ) {
             <div className="recipes-grid">
                 {recipes.map((recipe) => (
                     <div key={recipe.id} className="recipe-card">
-                        <h3>{recipe.title}</h3>
-                        <img src={`https://spoonacular.com/recipeImages/${recipe.image}`} alt={recipe.title} />
+                        <h3 className='recipe'>{recipe.title}</h3>
+                        <img className='recipe-img' src={recipe.image} alt={recipe.title} />
                         <button onClick={(e) => handleSetFavorite(e, recipe)}>Add to Favorites</button>
                     </div>
                 ))}
