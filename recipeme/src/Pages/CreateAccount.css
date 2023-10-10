@@ -1,0 +1,60 @@
+/* createaccount.css */
+.create-account-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+}
+
+.create-account-form__title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.create-account-form__input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.create-account-form__label {
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+}
+
+.create-account-form__input {
+    padding: 10px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+.create-account-form__submit-button {
+    padding: 10px;
+    font-size: 1.2rem;
+    border-radius: 5px;
+    border: none;
+    background-color: #0077ff;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+.create-account-form__submit-button:hover {
+    background-color: #005ae6;
+}
+
+.create-account-form__error {
+    color: red;
+    margin-bottom: 20px;
+}
+
+.create-account-form__login-link {
+    margin-top: 20px;
+    font-size: 1.2rem;
+}
+
+.create-account-form__login-link a {
+    color: #0077ff;
+}

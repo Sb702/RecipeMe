@@ -7,8 +7,7 @@ function SearchPage({ data, userid }) {
     const [query, setQuery] = useState('');
     const [recipes, setRecipes] = useState([]);
     const [favorites, setFavorites] = useState([]);
-
-    console.log(userid);
+    const [selectedRecipeId, setSelectedRecipeId] = useState(null);    // console.log(userid);
 
     useEffect(() => {
         async function handleLike() {
@@ -41,27 +40,51 @@ function SearchPage({ data, userid }) {
         setFavorites([...favorites, recipe]);
     };
 
+        {/* function to conditionally render the ingredients when the 'Ingredients' button is clicked */}
+        function handleShowIngredients(recipeId) {
+            setSelectedRecipeId(recipeId === selectedRecipeId ? null : recipeId);
+        }
+
     return (
         <div>
-            <form onSubmit={handleSearch}>
+            <form className='search-form' onSubmit={handleSearch}>
                 <input
+                    className='search-input'
                     type="text"
                     placeholder="Search for recipes"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                 />
-                <button type="submit">Search</button>
+                <button className='search-button' type="submit">Search</button>
             </form>
-            <ul>
-                {recipes.map((recipe) => (
-                    <li key={recipe.recipe.uri}>
-                        <h3>{recipe.recipe.label}</h3>
-                        <img src={recipe.recipe.image} alt={recipe.recipe.label} />
-                        <p>{recipe.recipe.source}</p>
-                        <button onClick={() => handleLikeRecipe(recipe)}>Like</button>
-                    </li>
-                ))}
-            </ul>
+    {/* <div className='nutrition-slider'>
+    <p>Nutrition Info</p>
+    <p>{recipe.recipe.totalNutrients.PROCNT.label}: {recipe.recipe.totalNutrients.PROCNT.quantity} {recipe.recipe.totalNutrients.PROCNT.unit}</p>
+   <p> {recipe.recipe.totalNutrients.SUGAR.label}: {recipe.recipe.totalNutrients.SUGAR.quantity} {recipe.recipe.totalNutrients.SUGAR.unit}</p>
+</div> */}
+
+<ul className='recipes-grid'>
+    {recipes.map((recipe) => (
+        <div className='recipe-container'>
+            <li key={recipe.recipe.uri} className='recipe'>
+                <h3 className='recipe'>{recipe.recipe.label}</h3>
+                <img className='recipe-img' src={recipe.recipe.image} alt={recipe.recipe.label} />
+
+                <div className='button-wrap'>
+                <button className='recipe-btn' onClick={() => handleLikeRecipe(recipe)}>Like</button>
+                <button className='recipe-btn' onClick={() => handleShowIngredients(recipe.recipe.uri)}>Ingredients</button>
+                </div>
+
+                <div className='ingredients-wrap, {selectedRecipeId === recipe.recipe.uri ? "show-ingredients" : 
+                "hide-ingredients"}'>
+                    {recipe.recipe.ingredientLines.map((ingredient, index) => (
+                        <p className={selectedRecipeId === recipe.recipe.uri ? 'show-ingredients' : 'hide-ingredients'} key={index}>{ingredient}</p>
+                    ))}
+                </div>
+            </li>
+        </div>
+    ))}
+</ul>
         </div>
     );
 }

@@ -1,51 +1,158 @@
+@keyframes load {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes loadout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
 .search-page {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 50px;
-}
-
-form {
+    padding: 20px;
+  }
+  
+  .search-form {
+    margin-top: 5%;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    margin-bottom: 30px;
-}
+    margin-bottom: 20px;
+    animation: load .3s ease-in-out;
+  }
 
-input[type="text"] {
-    background-color: rgba(88, 88, 88, 0.487);
-    color: white;
+  
+  .search-input {
+    width: 100%;
+    max-width: 500px;
     padding: 10px;
-    border: none;
-    border-radius: 5px;
-    margin-right: 10px;
     font-size: 16px;
-    width: 300px;
-}
-
-button[type="submit"] {
-    padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    background-color: #f44336;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+  }
+  
+  .search-button {
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    background-color: darkviolet;
     color: white;
-    font-size: 16px;
     cursor: pointer;
-}
-
-button[type="submit"]:hover {
-    background-color: #d32f2f;
-}
-
-.recipes-grid {
+  }
+  
+  .search-button:hover {
+    background-color: rgba(148, 0, 211, 0.913)
+  }
+  
+  .recipes-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
-    margin: 0 auto;
-    max-width: 1200px;
-}
+    gap: 20px;
+    padding: 2%;
+    list-style: none;
+  }
 
-.recipe {
+  .nutrition-slider {
+    background-color: silver;
+  }
+
+  .recipe-container {
+    /* display: grid;
+    grid-template-columns: .2fr .8fr; */
+  }
+  
+  .recipe {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 3%;
+    text-align: center;
+    background-color: rgb(151, 151, 159);
+    animation: load .5s ease-in-out;
+  }
+
+  .recipe-img {
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 10px;
+  }
+
+  .button-wrap {
+    display: flex;
+    justify-content:space-evenly ;
+    width: 90%;
+    margin-top: 2%;
+  }
+
+  .recipe-btn {
+    border: none;
+    border-radius: 5px;
+    background-color: darkviolet;
+    color: white;
+    cursor: pointer;
+    /* add boxshadow and other modern styling */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  /* recipe-btn hover effect */
+
+  .recipe-btn:hover {
+    background-color: rgba(148, 0, 211, 0.913);
+  }
+
+  .ingredients-wrap {
+    /* background-color: black; */
+
+    /* fit ingredients wrap inside of recipe-container */
+    width: 100%;
+    height: 100%;
+    
+
+  }
+
+  .hide-ingredients {
+    display: none;
+    animation: loadout .5s ease-in-out;
+  }
+
+  .show-ingredients {
+    display: block;
+    animation: load .5s ease-in-out;
+  }
+  
+  .recipe h3 {
+    font-size: 20px;
+    margin: 0;
+    margin-top: 10px;
+    margin-bottom: 4%;
+  }
+  
+  .favorite-recipe {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -54,17 +161,32 @@ button[type="submit"]:hover {
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     text-align: center;
-}
-
-.recipe-img {
+  }
+  
+  .favorite-recipe img {
     width: 100%;
     height: auto;
     border-radius: 5px;
     margin-bottom: 10px;
-}
-
-.recipe h3 {
+  }
+  
+  .favorite-recipe h3 {
     font-size: 20px;
     margin: 0;
     margin-top: 10px;
-}
+  }
+  
+  .favorites-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  
+  .favorites-subheader {
+    font-size: 24px;
+    margin: 0;
+    margin-bottom: 20px;
+  }
