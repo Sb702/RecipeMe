@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { supabase } from '../supabaseClient';
 import './IngredientSearch.css';
 
-export default function IngredientSearch({ userid }) {
+export default function IngredientSearch({ userid, setSelectedIngredient }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [searchResults, setSearchResults] = useState([]);
 
@@ -34,6 +34,7 @@ export default function IngredientSearch({ userid }) {
                 throw error;
             }
             console.log('Inserted into Pantry:', data);
+            setSelectedIngredient(result.name);
         } catch (error) {
             console.log('Error inserting into Pantry:', error.message);
         }
