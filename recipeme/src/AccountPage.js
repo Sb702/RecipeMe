@@ -8,10 +8,10 @@ import IngredientLayout from './Layouts/IngredientLayout';
 const AccountPage = ({ data, userid }) => {
     const [favorites, setFavorites] = useState([]);
     const [showFavorites, setShowFavorites] = useState(true);
+    const [deleted, setDeleted] = useState(false);
 
-    console.log('accountpage', userid)
 
-    const handleReload = async () => {
+    const handleLoad = async () => {
         const { data, error } = await supabase
             .from('User')
             .select('Favorites')
@@ -27,8 +27,9 @@ const AccountPage = ({ data, userid }) => {
     };
 
     useEffect(() => {
-        handleReload();
-    }, []);
+        handleLoad();
+        setDeleted(false);
+    }, [deleted]);
 
     const handleToggleFavorites = () => {
         setShowFavorites(true);
@@ -46,7 +47,7 @@ const AccountPage = ({ data, userid }) => {
                 <button className={showFavorites ? "active" : ""} onClick={handleToggleFavorites}>Favorites</button>
                 <button className={!showFavorites ? "active" : ""} onClick={handleToggleIngredientSearch}>Ingredient Search</button>
             </div>
-            {showFavorites ? <Favorites favorites={favorites} /> : <IngredientLayout userid={userid} />}
+            {showFavorites ? <Favorites favorites={favorites} setDeleted={setDeleted}/> : <IngredientLayout userid={userid} />}
         </div>
     );
 };

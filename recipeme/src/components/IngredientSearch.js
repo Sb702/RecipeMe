@@ -28,6 +28,7 @@ export default function IngredientSearch({ userid, setSelectedIngredient }) {
           console.log(searchResults);
         } else {
           setSearchResults([]);
+          console.log(searchResults)
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -64,7 +65,7 @@ export default function IngredientSearch({ userid, setSelectedIngredient }) {
         />
         <button type="submit">Search</button>
       </form>
-      <ul>
+      <ul className="ingredient-search-list">
         {searchResults.map((result) => (
           <li
             key={uuidv4()}

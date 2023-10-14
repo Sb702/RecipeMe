@@ -6,15 +6,16 @@ import { supabase } from './supabaseClient';
 function SearchPage({ data, userid }) {
     const [query, setQuery] = useState('');
     const [recipes, setRecipes] = useState([]);
-    const [favorites, setFavorites] = useState([]);
+    const [favorites, setFavorites] = useState();
     const [selectedRecipeId, setSelectedRecipeId] = useState(null);    // console.log(userid);
+    const [favoriteName, setFavoriteName] = useState('');
 
     useEffect(() => {
         async function handleLike() {
-            if (favorites.length > 0) {
+            if (favorites) {
                 const { data: insertedData, error } = await supabase
                     .from('User')
-                    .insert([{ Favorites: favorites, userid: userid }]);
+                    .insert([{ Favorites: favorites, userid: userid, name: favoriteName }]);
                 if (error) {
                     console.log(error);
                 } else {
@@ -37,7 +38,8 @@ function SearchPage({ data, userid }) {
 
     // when we click I want to insert make that speicifc recipe the favorite from the recipes state
     const handleLikeRecipe = (recipe) => {
-        setFavorites([...favorites, recipe]);
+        setFavorites(recipe);
+        setFavoriteName(recipe.recipe.label);
     };
 
         {/* function to conditionally render the ingredients when the 'Ingredients' button is clicked */}
@@ -73,6 +75,10 @@ function SearchPage({ data, userid }) {
                 <div className='button-wrap'>
                 <button className='recipe-btn' onClick={() => handleLikeRecipe(recipe)}>Like</button>
                 <button className='recipe-btn' onClick={() => handleShowIngredients(recipe.recipe.uri)}>Ingredients</button>
+                {/* create a button that when clicked takes the users to recipe.recipe.url */}
+                <a href={recipe.recipe.url} target="_blank" rel="noreferrer">
+                    <button className='recipe-btn'>View Recipe</button>
+                </a>
                 </div>
 
                 <div className='ingredients-wrap, {selectedRecipeId === recipe.recipe.uri ? "show-ingredients" : 

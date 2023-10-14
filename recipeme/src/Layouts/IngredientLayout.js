@@ -9,7 +9,7 @@ const IngredientLayout = ({ userid }) => {
   const [searchResults, setSearchResults] = useState([]);
   const [pantryItems, setPantryItems] = useState([]);
   const [selectedIngredient, setSelectedIngredient] = useState("");
-  const [deleteIngredient, setDeleteIngredient] = useState(false);
+  const [deleteIngredient, setDeleteIngredient] = useState('');
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -44,7 +44,7 @@ const IngredientLayout = ({ userid }) => {
       }
     }
     fetchPantryItems();
-    setDeleteIngredient(false);
+    setSelectedIngredient("");
   }, [selectedIngredient, deleteIngredient]);
 
   return (

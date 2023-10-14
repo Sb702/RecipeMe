@@ -13,41 +13,42 @@
 
 
 
-.favorite-ready-in-minutes {
-    position: absolute;
-    top: 0;
-    right: 0;
-    background-color: #6f42c1;
-    color: #fff;
-    padding: 5px 10px;
-    border-radius: 0 0 0 10px;
-    font-size: 0.8rem;
-    font-weight: bold;
-}
 .favorite-recipe:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 
-.favorite-image {
-    width: 100%;
-    height: auto;
-    border-radius: 10px;
-    margin-bottom: 10px;
-}
+
 
 .favorite-title {
     font-size: 1.2rem;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 3%;
 }
 
-.favorite-description {
-    font-size: 1rem;
-    text-align: center;
+.favorite-recipe-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
+
+.favorite-ingredients-wrap {
+    overflow: hidden;
+}
+
+.favorite-ingredients-collapsed {
+    text-align: left;
+    padding-left: 5%;
+}
+
 
 /* styling for the show-more-button class to make it look modern and sleek */
+
+.favorite-recipe-btns {
+    display: flex;
+    flex-direction: row;
+    gap: 5%;
+
+}
 
 .show-more-button {
     background-color: #6f42c1;

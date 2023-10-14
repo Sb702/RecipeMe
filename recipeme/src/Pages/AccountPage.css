@@ -15,6 +15,7 @@
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
+    gap: 3%;
 }
 
 .toggle-buttons button {
@@ -30,13 +31,13 @@
 }
 
 .toggle-buttons button.active {
-    background-color: #333;
+    background-color: purple;
     color: #fff;
 }
 
 .favorites-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 10px;
 }
 

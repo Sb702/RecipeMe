@@ -1,6 +1,6 @@
 import FavoriteRecipe from "./FavoriteRecipe";
 
-export default function Favorites( {favorites} ) {
+export default function Favorites( {favorites, setDeleted} ) {
   const generateKey = (prefix) => {
     return `${prefix}-${new Date().getTime()}-${Math.random()}`;
   };
@@ -12,7 +12,7 @@ export default function Favorites( {favorites} ) {
       <h3 className="favorites-subheader">Favorites</h3>
       <div className="favorites-grid">
         {favoriteRecipes.map((favorite, index) => (
-          <FavoriteRecipe key={generateKey("favorite")} recipe={favorite} />
+          <FavoriteRecipe key={generateKey("favorite")} setDeleted={setDeleted} recipe={favorite} />
         ))}
       </div>
     </div>

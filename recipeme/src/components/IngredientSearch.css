@@ -39,17 +39,38 @@
     margin: 0;
 }
 
+.ingredient-search-list {
+    overflow: scroll;
+    height: 40vh;
+}
+
+.ingredient-item {
+    display: flex;
+    justify-content: space-between;
+}
+
 .ingredient-search .ingredient-item {
     padding: 5px;
     font-size: 16px;
     border-radius: 5px;
     border: 1px solid #ccc;
     margin-bottom: 5px;
-    cursor: pointer;
     color: black;
     font-weight: bold;
 }
 
 .ingredient-search .ingredient-item:hover {
     background-color: #f2f2f2;
+}
+
+.ingredient-add-btn {
+    margin-right: 2%;
+    padding: 5px 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    background-color: purple;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
 }
