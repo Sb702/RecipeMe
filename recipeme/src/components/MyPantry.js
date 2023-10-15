@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { supabase } from "../supabaseClient";
 import "./MyPantry.css";
 
-export default function MyPantry({ pantryItems, setDeleteIngredient }) {
+export default function MyPantry({ pantryItems, setDeleteIngredient, setAmountChange }) {
+
+
+  
 
   const handleAmountChange = async (pantryItem, amount) => {
     const { data, error } = await supabase
@@ -14,6 +17,7 @@ export default function MyPantry({ pantryItems, setDeleteIngredient }) {
       console.log("Error updating pantry item:", error.message);
     } else {
       console.log("Pantry item updated:", data);
+      setAmountChange(true)
     }
   };
 
@@ -41,6 +45,9 @@ export default function MyPantry({ pantryItems, setDeleteIngredient }) {
         {pantryItems.map((item, index) => (
           <li className="ingredient" key={index}>
             {item.pantry}
+            <div className="ingredient-amount">
+              {item.amount}
+            </div>
             <div className="amount-buttons">
               <button
                 className="amount-button"

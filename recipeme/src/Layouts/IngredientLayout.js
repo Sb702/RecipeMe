@@ -10,6 +10,7 @@ const IngredientLayout = ({ userid }) => {
   const [pantryItems, setPantryItems] = useState([]);
   const [selectedIngredient, setSelectedIngredient] = useState("");
   const [deleteIngredient, setDeleteIngredient] = useState('');
+  const [amountChange, setAmountChange] = useState(false);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -35,7 +36,7 @@ const IngredientLayout = ({ userid }) => {
 
   useEffect(() => {
     async function fetchPantryItems() {
-      const { data, error } = await supabase.from("Pantry").select("pantry");
+      const { data, error } = await supabase.from("Pantry").select("pantry, amount");
 
       if (error) console.log("Error fetching pantry items:", error.message);
       else {
@@ -45,7 +46,8 @@ const IngredientLayout = ({ userid }) => {
     }
     fetchPantryItems();
     setSelectedIngredient("");
-  }, [selectedIngredient, deleteIngredient]);
+    setAmountChange(false);
+  }, [selectedIngredient, deleteIngredient, amountChange]);
 
   return (
     <div>
@@ -61,6 +63,7 @@ const IngredientLayout = ({ userid }) => {
         pantryItems={pantryItems}
         userid={userid}
         setDeleteIngredient={setDeleteIngredient}
+        setAmountChange={setAmountChange}
       />
     </div>
   );
